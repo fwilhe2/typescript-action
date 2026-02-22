@@ -1,5 +1,7 @@
 name: Continuous Integration
 
+# Based on https://words.filippo.io/dependabot/
+
 on:
   pull_request:
     branches:
@@ -7,6 +9,9 @@ on:
   push:
     branches:
       - main
+  schedule: # daily at 10:22 UTC
+    - cron: '22 10 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,7 +35,7 @@ jobs:
 
       - name: Install Dependencies
         id: npm-ci
-        run: npm ci
+        run: npm update
 
       - name: Check Format
         id: npm-format-check
